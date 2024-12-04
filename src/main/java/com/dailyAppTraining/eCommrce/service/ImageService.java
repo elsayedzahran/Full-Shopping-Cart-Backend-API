@@ -1,6 +1,7 @@
 package com.dailyAppTraining.eCommrce.service;
 
 import com.dailyAppTraining.eCommrce.dto.ImageDto;
+import com.dailyAppTraining.eCommrce.dto.ProductDto;
 import com.dailyAppTraining.eCommrce.exception.ResourceNotFoundException;
 import com.dailyAppTraining.eCommrce.model.Image;
 import com.dailyAppTraining.eCommrce.model.Product;
@@ -44,8 +45,8 @@ public class ImageService {
                 imageRepo.save(savedImage);
 
                 ImageDto imageDto = new ImageDto();
-                imageDto.setImageName(savedImage.getFileName());
-                imageDto.setImageId(savedImage.getId());
+                imageDto.setFileName(savedImage.getFileName());
+                imageDto.setId(savedImage.getId());
                 imageDto.setDownloadUrl(savedImage.getDownloadUrl());
 
                 savedImagesDtos.add(imageDto);

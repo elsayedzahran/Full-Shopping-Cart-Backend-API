@@ -18,5 +18,5 @@ public class UpdateProductRequest {
     private String brand;
     private BigDecimal price;
     private int inventory;
-    private Category category;
+    private CategoryDto category;
 }

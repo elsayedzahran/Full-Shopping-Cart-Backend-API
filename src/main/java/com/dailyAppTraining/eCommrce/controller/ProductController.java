@@ -1,18 +1,13 @@
 package com.dailyAppTraining.eCommrce.controller;
-
-
 import com.dailyAppTraining.eCommrce.dto.AddProductRequest;
+import com.dailyAppTraining.eCommrce.dto.ProductDto;
 import com.dailyAppTraining.eCommrce.dto.UpdateProductRequest;
 import com.dailyAppTraining.eCommrce.exception.ResourceNotFoundException;
-
-import com.dailyAppTraining.eCommrce.model.Product;
 import com.dailyAppTraining.eCommrce.response.ApiResponse;
 import com.dailyAppTraining.eCommrce.service.ProductService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -37,10 +32,10 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/products/{name}/products")
+    @GetMapping("/products/{productName}/products")
     public ResponseEntity<ApiResponse> getProductsByName(@PathVariable String productName){
         try {
-            List<Product> products = productService.getProductsByName(productName);
+            List<ProductDto> products = productService.getProductsByName(productName);
             if (products.isEmpty()){
                 return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No products found", null));
             }
@@ -85,7 +80,7 @@ public class ProductController {
     public ResponseEntity<ApiResponse> getProductByBrandAndName(
             @RequestParam String brandName, @RequestParam String productName){
         try {
-            List<Product> products = productService.getProductsByBrandAndName(brandName, productName);
+            List<ProductDto> products = productService.getProductsByBrandAndName(brandName, productName);
             if (products.isEmpty()){
                 return ResponseEntity.status(NOT_FOUND)
                         .body(new ApiResponse("No products found", null));
@@ -100,7 +95,7 @@ public class ProductController {
     public ResponseEntity<ApiResponse> getProductByCategoryAndBrand(
             @RequestParam String categoryName, @RequestParam String brandName){
         try {
-            List<Product> products = productService.getProductsByCategoryAndBrand(categoryName, brandName);
+            List<ProductDto> products = productService.getProductsByCategoryAndBrand(categoryName, brandName);
             if (products.isEmpty()){
                 return ResponseEntity.status(NOT_FOUND)
                         .body(new ApiResponse("No products found", null));
@@ -114,7 +109,7 @@ public class ProductController {
     @GetMapping("/product/by-brand")
     public ResponseEntity<ApiResponse> findProductByBrand(@RequestParam String brand) {
         try {
-            List<Product> products = productService.getProductsByBrand(brand);
+            List<ProductDto> products = productService.getProductsByBrand(brand);
             if (products.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No products found ", null));
             }
@@ -127,7 +122,7 @@ public class ProductController {
     @GetMapping("/product/{category}/all/products")
     public ResponseEntity<ApiResponse> findProductByCategory(@PathVariable String category) {
         try {
-            List<Product> products = productService.getProductsByCategory(category);
+            List<ProductDto> products = productService.getProductsByCategory(category);
             if (products.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No products found ", null));
             }

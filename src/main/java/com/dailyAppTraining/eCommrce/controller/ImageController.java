@@ -5,6 +5,9 @@ import com.dailyAppTraining.eCommrce.exception.ResourceNotFoundException;
 import com.dailyAppTraining.eCommrce.model.Image;
 import com.dailyAppTraining.eCommrce.response.ApiResponse;
 import com.dailyAppTraining.eCommrce.service.ImageService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -37,7 +40,8 @@ public class ImageController {
         }
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
+
     public ResponseEntity<ApiResponse> updateImage(
             @RequestParam List<MultipartFile> files,@RequestParam Long productId){
         try {
@@ -61,8 +65,12 @@ public class ImageController {
                 .body(resource);
     }
 
+    @Operation(
+            summary = "Upload a file",
+            description = "Endpoint to upload a file"
+    )
     @PutMapping("/image/{imageId}/update")
-    public ResponseEntity<ApiResponse> updateImage(@PathVariable Long imageId, @RequestBody MultipartFile file)  {
+    public ResponseEntity<ApiResponse> updateImage(@PathVariable Long imageId, @RequestParam("file") MultipartFile file)  {
         try {
             Image image = imageService.getImageById(imageId);
             if (image != null){
